@@ -1,23 +1,25 @@
 {
   "files": {
-    "main.css": "/form-builder-app/static/css/main.a617e044.chunk.css",
-    "main.js": "/form-builder-app/static/js/main.b7424b36.chunk.js",
-    "main.js.map": "/form-builder-app/static/js/main.b7424b36.chunk.js.map",
-    "runtime-main.js": "/form-builder-app/static/js/runtime-main.e56f5c3f.js",
-    "runtime-main.js.map": "/form-builder-app/static/js/runtime-main.e56f5c3f.js.map",
-    "static/js/2.db65834d.chunk.js": "/form-builder-app/static/js/2.db65834d.chunk.js",
-    "static/js/2.db65834d.chunk.js.map": "/form-builder-app/static/js/2.db65834d.chunk.js.map",
-    "static/js/3.76b5dfc3.chunk.js": "/form-builder-app/static/js/3.76b5dfc3.chunk.js",
-    "static/js/3.76b5dfc3.chunk.js.map": "/form-builder-app/static/js/3.76b5dfc3.chunk.js.map",
+    "main.css": "/form-builder-app/static/css/main.e8d5cb30.chunk.css",
+    "main.js": "/form-builder-app/static/js/main.d211d651.chunk.js",
+    "main.js.map": "/form-builder-app/static/js/main.d211d651.chunk.js.map",
+    "runtime-main.js": "/form-builder-app/static/js/runtime-main.26a7143c.js",
+    "runtime-main.js.map": "/form-builder-app/static/js/runtime-main.26a7143c.js.map",
+    "static/css/2.0a9ec390.chunk.css": "/form-builder-app/static/css/2.0a9ec390.chunk.css",
+    "static/js/2.db1d20c5.chunk.js": "/form-builder-app/static/js/2.db1d20c5.chunk.js",
+    "static/js/2.db1d20c5.chunk.js.map": "/form-builder-app/static/js/2.db1d20c5.chunk.js.map",
+    "static/js/3.db080cd9.chunk.js": "/form-builder-app/static/js/3.db080cd9.chunk.js",
+    "static/js/3.db080cd9.chunk.js.map": "/form-builder-app/static/js/3.db080cd9.chunk.js.map",
     "index.html": "/form-builder-app/index.html",
-    "static/css/main.a617e044.chunk.css.map": "/form-builder-app/static/css/main.a617e044.chunk.css.map",
-    "static/js/2.db65834d.chunk.js.LICENSE.txt": "/form-builder-app/static/js/2.db65834d.chunk.js.LICENSE.txt",
-    "static/media/logo.6ce24c58.svg": "/form-builder-app/static/media/logo.6ce24c58.svg"
+    "static/css/2.0a9ec390.chunk.css.map": "/form-builder-app/static/css/2.0a9ec390.chunk.css.map",
+    "static/css/main.e8d5cb30.chunk.css.map": "/form-builder-app/static/css/main.e8d5cb30.chunk.css.map",
+    "static/js/2.db1d20c5.chunk.js.LICENSE.txt": "/form-builder-app/static/js/2.db1d20c5.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
-    "static/js/runtime-main.e56f5c3f.js",
-    "static/js/2.db65834d.chunk.js",
-    "static/css/main.a617e044.chunk.css",
-    "static/js/main.b7424b36.chunk.js"
+    "static/js/runtime-main.26a7143c.js",
+    "static/css/2.0a9ec390.chunk.css",
+    "static/js/2.db1d20c5.chunk.js",
+    "static/css/main.e8d5cb30.chunk.css",
+    "static/js/main.d211d651.chunk.js"
   ]
 }
