@@ -1,8 +1,8 @@
 import * as React from "react";
 import { Box, Tabs, Tab } from "@material-ui/core";
 import "./App.css";
-import { Preview } from "./components/preview";
-import { Formbuilder } from "./components/formbuilder";
+import { Preview } from "./components/preview/preview";
+import { Formbuilder } from "./components/form/formbuilder";
 
 function App() {
   const [value, setValue] = React.useState(0);
