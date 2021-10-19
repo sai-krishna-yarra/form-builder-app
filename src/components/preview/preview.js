@@ -2,10 +2,12 @@ import React from "react";
 import { useSelector } from "react-redux";
 import { Answer } from "../answer/answer";
 import "./preview.css";
+
 export const Preview = () => {
   const { questionsList, formHeading, formDescription } = useSelector(
     (state) => state
   );
+  
   return (
     <>
       {questionsList ? (

@@ -14,16 +14,19 @@ import {
 import "./answer.css";
 
 export const Answer = ({ question, index, cbToUpdate, editable }) => {
+
   const [value, setValue] = React.useState("");
   const [dropDownValue, setDropDownValue] = React.useState("");
 
   const updateValue = (event) => {
     setValue(event.target.value);
   };
+
   const updateAnswers = () => {
     question.answersList = value.toString().split(",");
     cbToUpdate(question, index);
   };
+
   return (
     <>
       {editable && <h6>Please enter the Answer below</h6>}
@@ -69,7 +72,7 @@ export const Answer = ({ question, index, cbToUpdate, editable }) => {
               <FormControl component="fieldset">
                 <RadioGroup
                   row
-                  aria-label="gender"
+                  aria-label="option"
                   name="row-radio-buttons-group"
                 >
                   {question.answersList.map((option, index) => {
