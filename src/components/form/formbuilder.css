@@ -7,6 +7,7 @@
     background-color: #1976d2;
 }
 .form-builder-section .each-question {
+    cursor: grab;
     padding: 10px;
     width: 500px;
     border: solid lightblue 1.5px;

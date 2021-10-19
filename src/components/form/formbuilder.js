@@ -27,6 +27,7 @@ export const Formbuilder = () => {
     answer: "",
   };
   const store = useSelector((state) => state);
+  const [dragId, setDragId] = useState();
   const [message, setMessage] = useState("");
   const [formHeading, setFormHeading] = useState(store.formHeading || "");
   const [formDescription, setFormDescription] = useState(
@@ -71,6 +72,25 @@ export const Formbuilder = () => {
     const tempQuestionList = questionsList;
     tempQuestionList[index] = question;
     setQuestionsList([...tempQuestionList]);
+  };
+
+  const handleDrop = (ev) => {
+    if (
+      typeof ev?.currentTarget?.id === "string" &&
+      typeof dragId === "string"
+    ) {
+      const tempQuestionList = questionsList;
+      [tempQuestionList[ev.currentTarget.id], tempQuestionList[dragId]] = [
+        tempQuestionList[dragId],
+        tempQuestionList[ev.currentTarget.id],
+      ];
+      console.log(tempQuestionList);
+      setQuestionsList([...tempQuestionList]);
+    }
+  };
+
+  const handleDrag = (ev) => {
+    setDragId(ev?.currentTarget?.id);
   };
 
   const saveForm = () => {
@@ -154,7 +174,15 @@ export const Formbuilder = () => {
             questionsList.map((question, index) => {
               return (
                 index > 0 && (
-                  <div key={index} className="each-question">
+                  <div
+                    key={index}
+                    className="each-question"
+                    draggable={true}
+                    id={index}
+                    onDragOver={(ev) => ev.preventDefault()}
+                    onDragStart={handleDrag}
+                    onDrop={handleDrop}
+                  >
                     <TextField
                       onChange={(event) =>
                         handleQuestionChange(
