@@ -7,7 +7,7 @@ export const Preview = () => {
   const { questionsList, formHeading, formDescription } = useSelector(
     (state) => state
   );
-  
+
   return (
     <>
       {questionsList ? (
@@ -19,25 +19,23 @@ export const Preview = () => {
           <span className="mand-text">* Mandatory Question</span>
           {questionsList.map((question, index) => {
             return (
-              index > 0 && (
-                <div key={index} className="preview-answers">
-                  <p>
-                    {index + "). "}
-                    {question.questionTitle}
-                    {question.isRequired && (
-                      <span style={{ color: "red" }}>*</span>
-                    )}
-                  </p>
-                  <Answer question={question} editable={false} />
-                </div>
-              )
+              <div key={index} className="preview-answers">
+                <p>
+                  {index + 1 + "). "}
+                  {question.questionTitle}
+                  {question.isRequired && (
+                    <span style={{ color: "red" }}>*</span>
+                  )}
+                </p>
+                <Answer question={question} editable={false} />
+              </div>
             );
           })}
         </div>
       ) : (
         <div className="no-preview-container">
           <h5>
-            <span>!</span> You have no Forms to Preview
+            <span>!</span> You have no Form to Preview
           </h5>
         </div>
       )}

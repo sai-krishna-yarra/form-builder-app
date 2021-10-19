@@ -34,7 +34,7 @@ export const Formbuilder = () => {
     store.formDescription || ""
   );
   const [questionsList, setQuestionsList] = useState(
-    store.questionsList || [question, question]
+    store.questionsList || [{ ...question }]
   );
   const dispatch = useDispatch();
 
@@ -52,7 +52,7 @@ export const Formbuilder = () => {
 
   const duplicateQuestion = (index) => {
     const tempQuestionList = questionsList;
-    tempQuestionList.splice(index + 1, 0, tempQuestionList[index]);
+    tempQuestionList.splice(index + 1, 0, { ...tempQuestionList[index] });
     setQuestionsList([...tempQuestionList]);
   };
 
@@ -84,8 +84,8 @@ export const Formbuilder = () => {
         tempQuestionList[dragId],
         tempQuestionList[ev.currentTarget.id],
       ];
-      console.log(tempQuestionList);
       setQuestionsList([...tempQuestionList]);
+      setMessage("success,Order Changed Successfully");
     }
   };
 
@@ -100,21 +100,20 @@ export const Formbuilder = () => {
     }
     let formErrorMessage = "";
     [...questionsList].forEach((question, index) => {
-      if (index > 0) {
-        if (!question.questionTitle) {
-          formErrorMessage = "error,Please Enter Title for Question " + index;
-        } else if (!question.answerType) {
-          formErrorMessage =
-            "error,Please select Answer Type for Question " + index;
-        } else if (
-          question.answersList.length === 0 &&
-          (question.answerType === "Multiple Choice" ||
-            question.answerType === "Checkbox" ||
-            question.answerType === "DropDown")
-        ) {
-          formErrorMessage =
-            "error,Please Enter Atleast One Option for Question " + index;
-        }
+      if (!question.questionTitle) {
+        formErrorMessage =
+          "error,Please Enter Title for Question " + (index + 1);
+      } else if (!question.answerType) {
+        formErrorMessage =
+          "error,Please select Answer Type for Question " + (index + 1);
+      } else if (
+        question.answersList.length === 0 &&
+        (question.answerType === "Multiple Choice" ||
+          question.answerType === "Checkbox" ||
+          question.answerType === "DropDown")
+      ) {
+        formErrorMessage =
+          "error,Please Enter Atleast One Option for Question " + (index + 1);
       }
     });
     if (formErrorMessage) {
@@ -130,11 +129,11 @@ export const Formbuilder = () => {
   const resetForm = () => {
     setFormHeading("");
     setFormDescription("");
-    setQuestionsList([question, question]);
+    setQuestionsList([{ ...question }]);
     dispatch(saveFormAction("", "", ""));
   };
   const addQuestion = () => {
-    setQuestionsList([...questionsList, question]);
+    setQuestionsList([...questionsList, { ...question }]);
     setTimeout(() => {
       document.querySelector(".each-question:last-child")?.scrollIntoView({
         behavior: "smooth",
@@ -173,100 +172,93 @@ export const Formbuilder = () => {
           {questionsList.length > 0 &&
             questionsList.map((question, index) => {
               return (
-                index > 0 && (
-                  <div
-                    key={index}
-                    className="each-question"
-                    draggable={true}
-                    id={index}
-                    onDragOver={(ev) => ev.preventDefault()}
-                    onDragStart={handleDrag}
-                    onDrop={handleDrop}
-                  >
-                    <TextField
+                <div
+                  key={index}
+                  className="each-question"
+                  draggable={true}
+                  id={index}
+                  onDragOver={(ev) => ev.preventDefault()}
+                  onDragStart={handleDrag}
+                  onDrop={handleDrop}
+                >
+                  <TextField
+                    onChange={(event) =>
+                      handleQuestionChange(
+                        event.target.value,
+                        index,
+                        "questionTitle"
+                      )
+                    }
+                    value={question.questionTitle}
+                    label={`Question ${index + 1}*`}
+                    variant="standard"
+                  />
+                  <FormControl variant="standard" sx={{ m: 1, minWidth: 120 }}>
+                    <InputLabel id="demo-simple-select-standard-label">
+                      Answer Type*
+                    </InputLabel>
+                    <Select
+                      labelId="demo-simple-select-standard-label"
+                      id={"demo-simple-select-standard-" + (index + 1)}
+                      value={question.answerType}
                       onChange={(event) =>
                         handleQuestionChange(
                           event.target.value,
                           index,
-                          "questionTitle"
+                          "answerType"
                         )
                       }
-                      value={question.questionTitle}
-                      label={`Question ${index}*`}
-                      variant="standard"
-                    />
-                    <FormControl
-                      variant="standard"
-                      sx={{ m: 1, minWidth: 120 }}
+                      label="Answer Type*"
                     >
-                      <InputLabel id="demo-simple-select-standard-label">
-                        Answer Type*
-                      </InputLabel>
-                      <Select
-                        labelId="demo-simple-select-standard-label"
-                        id={"demo-simple-select-standard-" + index}
-                        value={question.answerType}
-                        onChange={(event) =>
-                          handleQuestionChange(
-                            event.target.value,
-                            index,
-                            "answerType"
-                          )
-                        }
-                        label="Answer Type*"
-                      >
-                        <MenuItem value={"Short Answer"}>Short Answer</MenuItem>
-                        <MenuItem value={"Paragraph"}>Paragraph</MenuItem>
-                        <MenuItem value={"Multiple Choice"}>
-                          Multiple Choice
-                        </MenuItem>
-                        <MenuItem value={"Checkbox"}>Checkbox</MenuItem>
-                        <MenuItem value={"DropDown"}>DropDown</MenuItem>
-                        <MenuItem value={"Date and Time"}>
-                          Date and Time
-                        </MenuItem>
-                      </Select>
-                    </FormControl>
-                    {question.answerType && (
-                      <Answer
-                        question={question}
-                        index={index}
-                        cbToUpdate={handleOptionsChange}
-                        editable={true}
-                      />
-                    )}
-                    <div className="button-container">
-                      <Button
-                        variant="contained"
-                        aria-label="outlined primary button"
-                        onClick={() => duplicateQuestion(index)}
-                      >
-                        Duplicate
-                      </Button>
-                      <Button
-                        variant="contained"
-                        aria-label="outlined primary button"
-                        onClick={() => removeQuestion(index)}
-                      >
-                        Remove
-                      </Button>
-                      <FormControlLabel
-                        control={
-                          <Switch
-                            onChange={(event) =>
-                              handleQuestionChange(
-                                event.target.checked,
-                                index,
-                                "isRequired"
-                              )
-                            }
-                          />
-                        }
-                        label="Mandatory"
-                      />
-                    </div>
+                      <MenuItem value={"Short Answer"}>Short Answer</MenuItem>
+                      <MenuItem value={"Paragraph"}>Paragraph</MenuItem>
+                      <MenuItem value={"Multiple Choice"}>
+                        Multiple Choice
+                      </MenuItem>
+                      <MenuItem value={"Checkbox"}>Checkbox</MenuItem>
+                      <MenuItem value={"DropDown"}>DropDown</MenuItem>
+                      <MenuItem value={"Date and Time"}>Date and Time</MenuItem>
+                    </Select>
+                  </FormControl>
+                  {question.answerType && (
+                    <Answer
+                      question={question}
+                      index={index}
+                      cbToUpdate={handleOptionsChange}
+                      editable={true}
+                    />
+                  )}
+                  <div className="button-container">
+                    <Button
+                      variant="contained"
+                      aria-label="outlined primary button"
+                      onClick={() => duplicateQuestion(index)}
+                    >
+                      Duplicate
+                    </Button>
+                    <Button
+                      variant="contained"
+                      aria-label="outlined primary button"
+                      onClick={() => removeQuestion(index)}
+                    >
+                      Remove
+                    </Button>
+                    <FormControlLabel
+                      control={
+                        <Switch
+                          onChange={(event) =>
+                            handleQuestionChange(
+                              event.target.checked,
+                              index,
+                              "isRequired"
+                            )
+                          }
+                        />
+                      }
+                      label="Mandatory"
+                    />
                   </div>
-                )
+                </div>
               );
             })}
         </div>
